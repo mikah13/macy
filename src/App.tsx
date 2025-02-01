@@ -6,8 +6,9 @@ import { Room } from "./components/3D/Room";
 import { useThemeStore } from "./stores/theme";
 
 function App() {
-  const { roomColor } = useControls("Room Settings", {
+  const { roomColor, roomSize } = useControls("Room Settings", {
     roomColor: { r: 200, b: 125, g: 106, a: 0.5 },
+    roomSize: 4,
   });
   const { theme } = useThemeStore();
 
@@ -30,6 +31,8 @@ function App() {
           />
           <pointLight decay={0.4} intensity={Math.PI} />
           <Room
+            height={roomSize}
+            width={roomSize}
             color={`rgb(${roomColor.r},${roomColor.g},${roomColor.b},${roomColor.a})`}
           />
         </Canvas>

@@ -4,13 +4,13 @@ import { useControls } from "leva";
 import Ground from "./components/3D/Ground";
 import { Room } from "./components/3D/Room";
 import { useThemeStore } from "./stores/theme";
-import { Button } from "./components/ui/button";
 
 function App() {
   const { roomColor } = useControls("Room Settings", {
-    roomColor: { options: ["orange", "blue", "red", "green", "purple"] },
+    roomColor: { r: 200, b: 125, g: 106, a: 0.5 },
   });
   const { theme } = useThemeStore();
+
   return (
     <>
       <div className="relative h-screen w-full">
@@ -29,7 +29,9 @@ function App() {
             castShadow
           />
           <pointLight decay={0.4} intensity={Math.PI} />
-          <Room color={roomColor} />
+          <Room
+            color={`rgb(${roomColor.r},${roomColor.g},${roomColor.b},${roomColor.a})`}
+          />
         </Canvas>
       </div>
     </>

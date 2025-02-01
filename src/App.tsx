@@ -1,26 +1,28 @@
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useControls } from "leva";
-import Cube from "./components/Cube";
+import Cube from "./components/3D/Cube";
+import Ground from "./components/3D/Ground";
+import { useThemeStore } from "./stores/theme";
+import { Button } from "./components/ui/button";
 
 function App() {
   const { cubeColor } = useControls("Cube", {
     cubeColor: { options: ["orange", "blue", "red", "green", "purple"] },
   });
 
+  const { theme } = useThemeStore();
   return (
     <>
       <div className="relative h-screen w-full">
-        <h1 className="absolute top-10 left-1/2 z-10 -translate-x-1/2 transform text-2xl font-bold text-gray-100">
-          R3F + Vite + Tailwind + Leva
-        </h1>
-
-        <p className="absolute top-20 left-1/2 max-w-md -translate-x-1/2 text-center text-lg text-red-400">
-          A simple starter kit for React Three Fiber with Vite and Tailwind CSS
-          & Leva for debugging.
-        </p>
-
-        <Canvas flat shadows camera={{ position: [0, 0, 20], fov: 25 }}>
+        <Canvas
+          gl={{ preserveDrawingBuffer: true, antialias: true }}
+          flat
+          shadows
+          camera={{ position: [0, 0, 20], fov: 25 }}
+          linear={false}
+        >
+          <Ground theme={theme} visible={true} />
           <OrbitControls />
           <ambientLight intensity={Math.PI / 2} />
           <spotLight

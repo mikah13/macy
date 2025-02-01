@@ -6,9 +6,10 @@ import { Room } from "./components/3D/Room";
 import { useThemeStore } from "./stores/theme";
 
 function App() {
-  const { roomColor, roomSize } = useControls("Room Settings", {
-    roomColor: { r: 200, b: 125, g: 106, a: 0.5 },
+  const { roomColor, roomSize, wallThickness } = useControls("Room Settings", {
+    roomColor: { r: 200, b: 200, g: 106, a: 1 },
     roomSize: 4,
+    wallThickness: 0.1,
   });
   const { theme } = useThemeStore();
 
@@ -23,14 +24,10 @@ function App() {
           <Ground theme={theme} visible={true} />
           <OrbitControls />
           <ambientLight intensity={0.5} />
-          <spotLight
-            position={[5, 10, 5]}
-            angle={0.3}
-            penumbra={1}
-            castShadow
-          />
+          <spotLight position={[2, 5, 2]} angle={0.3} penumbra={1} castShadow />
           <pointLight decay={0.4} intensity={Math.PI} />
           <Room
+            thickness={wallThickness}
             height={roomSize}
             width={roomSize}
             color={`rgb(${roomColor.r},${roomColor.g},${roomColor.b},${roomColor.a})`}

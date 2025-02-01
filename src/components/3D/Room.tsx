@@ -8,22 +8,22 @@ interface RoomProps {
 }
 
 export const Room: React.FC<RoomProps> = ({
-  width = 10,
-  height = 10,
+  width = 5,
+  height = 5,
   thickness = 0.2,
   color = "#d16993",
 }) => {
   return (
     <>
       {/*  Right */}
-      <mesh position={[0, (height - thickness) / 2, -width / 2]}>
+      <mesh position={[0, (height - thickness) / 2, (-width + thickness) / 2]}>
         <boxGeometry args={[width, height, thickness]} />
         <meshStandardMaterial color={color} />
       </mesh>
 
       {/* Left Wall */}
       <mesh
-        position={[-width / 2, (height - thickness) / 2, 0]}
+        position={[(-width + thickness) / 2, (height - thickness) / 2, 0]}
         rotation={[0, Math.PI / 2, 0]}
       >
         <boxGeometry args={[width, height, thickness]} />

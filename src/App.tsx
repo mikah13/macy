@@ -5,6 +5,7 @@ import Cube from "./components/3D/Cube";
 import Ground from "./components/3D/Ground";
 import { useThemeStore } from "./stores/theme";
 import { Button } from "./components/ui/button";
+import { Room } from "./components/3D/Room";
 
 function App() {
   const { cubeColor } = useControls("Cube", {
@@ -16,29 +17,20 @@ function App() {
     <>
       <div className="relative h-screen w-full">
         <Canvas
-          gl={{ preserveDrawingBuffer: true, antialias: true }}
-          flat
           shadows
-          camera={{ position: [0, 0, 20], fov: 25 }}
-          linear={false}
+          camera={{ position: [0, 2, 2], fov: 75, near: 0.1, far: 5000 }}
         >
           <Ground theme={theme} visible={true} />
           <OrbitControls />
-          <ambientLight intensity={Math.PI / 2} />
+          <ambientLight intensity={0.5} />
           <spotLight
-            position={[10, 10, 10]}
-            angle={0.15}
+            position={[5, 10, 5]}
+            angle={0.3}
             penumbra={1}
-            decay={0}
-            intensity={Math.PI}
+            castShadow
           />
-          <pointLight
-            position={[-10, -10, -10]}
-            decay={0}
-            intensity={Math.PI}
-          />
-          <Cube position={[-1.2, 0, 0]} cubeColor={cubeColor} />
-          <Cube position={[1.2, 0, 0]} cubeColor={cubeColor} />
+          <pointLight decay={0.4} intensity={Math.PI} />
+          <Room />
         </Canvas>
       </div>
     </>
